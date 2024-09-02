@@ -30,7 +30,7 @@ body {
 .title {
   margin: 0 0 20px;
   font-size: 32px;
-  color: #007BFF;
+  color: #732E89;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -75,6 +75,7 @@ body {
   box-shadow: 0 0 30px rgba(255, 165, 0, 0.7);
   animation: rotateSun 15s linear infinite;
 }
+
 
 @keyframes rotateSun {
   from { transform: rotate(0deg); }
@@ -122,7 +123,8 @@ body {
   left: 10%;
   width: 180px;
   height: 180px;
-  background: linear-gradient(145deg, #20e0a0, #1ed296);
+  /*background: linear-gradient(145deg, #20e0a0, #1ed296);*/
+  background-color: #722e89c0;
   border-radius: 50% 50% 45% 45%;
   box-shadow: 0 10px 20px rgba(30, 210, 150, 0.3),
               inset 0 -10px 10px rgba(0, 0, 0, 0.1);
@@ -212,7 +214,7 @@ body {
   left: 15%;
   width: 30px;
   height: 40px;
-  background: #1ed296;
+  background: #732E89;
   border-radius: 50% 50% 0 0;
   transform: rotate(-30deg);
 }
@@ -224,7 +226,7 @@ body {
   right: 15%;
   width: 30px;
   height: 40px;
-  background: #1ed296;
+  background: #732E89;
   border-radius: 50% 50% 0 0;
   transform: rotate(30deg);
 }
@@ -323,12 +325,13 @@ body {
 }
 
 .daily-tip {
-  background-color: #E6F3FF;
+  background-color: #722e8980;
   padding: 15px;
   border-radius: 10px;
   margin-top: 20px;
   font-size: 16px;
-  color: #333;
+  color: #732E89;
+  
 }
 
 @keyframes bounce {
@@ -344,6 +347,7 @@ body {
   bottom: 0;
   overflow: hidden;
   z-index: -1;
+  border-radius: 4.8%;
 }
 
 .sun-decoration {
@@ -388,4 +392,9 @@ body {
   height: 80px;
   top: -40px;
   right: 15px;
+}
+
+.imglo{
+  width: 20%;
+  padding-right: 12%;
 }
