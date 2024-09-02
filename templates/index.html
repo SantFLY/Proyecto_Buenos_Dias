@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buenos Días</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <div class="sun"></div>
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    <div class="background-cloud cloud-1"></div>
+    <div class="background-cloud cloud-2"></div>
+    <div class="background-cloud cloud-3"></div>
+    <div class="background-cloud cloud-4"></div>
+    <div class="background-cloud cloud-5"></div>
+    <div class="background-cloud cloud-6"></div>
+    <div class="mascot">
+        <div class="eye-container">
+            <div class="eye">
+                <div class="pupil"></div>
+            </div>
+            <div class="eye">
+                <div class="pupil"></div>
+            </div>
+        </div>
+        <div class="mouth"></div>
+    </div>
+    <div class="card">
+        <div class="card-content">
+            <h1 class="title">¡Buenos Días!</h1>
+            <p id="message" class="message">Que tengas un día maravilloso 😊</p>
+            <button class="button" onclick="changeMessage()">Mensaje especial</button>
+        </div>
+        <div class="card-decoration">
+            <div class="sun-decoration"></div>
+            <div class="cloud-decoration"></div>
+        </div>
+        <p class="daily-tip"></p>
+    </div>
+
+    <div class="stats-container">
+        <div id="streak" class="streak"></div>
+        <div id="visitCount" class="visit-count"></div>
+    </div>
+
+    <audio id="specialMessageSound" src="https://www.soundjay.com/button/sounds/button-4.mp3"></audio>
+
+    <script>
+        function changeMessage() {
+            const messageElement = document.getElementById('message');
+            const button = document.querySelector('.button');
+            const messages = [
+                '¡Eres increíble! 🌟',
+                '¡Sigue brillando! ✨',
+                '¡Hoy es tu día! 🌞',
+                '¡Nunca te rindas! 💪',
+                '¡Eres una estrella! ⭐',
+                '¡Sigue adelante! 🚀',
+                '¡Lo estás haciendo genial! 👍',
+                '¡Eres único! 🌈',
+                '¡Cree en ti mismo! 🦋',
+                '¡Tú puedes con todo! 🏆',
+                '¡Eres más fuerte de lo que crees! 🦁',
+                '¡Haz que hoy sea asombroso! 🎉',
+                '¡Tu actitud determina tu dirección! 🧭',
+                '¡Cada día es una nueva oportunidad! 🌅',
+                '¡Tus sueños están esperándote! 💭',
+                '¡Eres capaz de cosas maravillosas! 🌠',
+                '¡Tu potencial es ilimitado! 🚀',
+                '¡Confía en el proceso! 🌱',
+                '¡Eres imparable! ⚡',
+                '¡Tu esfuerzo vale la pena! 💎',
+                '¡Hoy es un buen día para sonreír! 😊',
+                '¡Eres una inspiración! 🌟',
+                '¡El éxito comienza con tu actitud! 🌈',
+                '¡Crea tu propia suerte! 🍀',
+                '¡Eres el protagonista de tu vida! 🎬',
+                '¡Cada paso cuenta! 👣',
+                '¡Tu mejor versión te está esperando! 🔝',
+                '¡Eres más valiente de lo que piensas! 🦸‍♂️',
+                '¡Haz que cada momento cuente! ⏳',
+                '¡Tu actitud positiva es tu superpoder! 💫',
+                '¡Eres extraordinario! 🌟',
+                '¡Tus límites solo existen en tu mente! 🧠',
+                '¡Hoy es el primer día del resto de tu vida! 🌄',
+                '¡Eres el artista de tu propio destino! 🎨',
+                '¡Tu energía positiva es contagiosa! ⚡',
+                '¡Eres capaz de superar cualquier obstáculo! 🏔️',
+                '¡Tu sonrisa ilumina el mundo! 😄',
+                '¡Eres una fuente de inspiración! 💡',
+                '¡Cada día es una nueva aventura! 🗺️',
+                '¡Tu determinación mueve montañas! 🏔️'
+            ];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            
+            messageElement.style.opacity = '0';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                messageElement.textContent = randomMessage;
+                messageElement.style.opacity = '1';
+                button.disabled = false;
+            }, 500);
+            
+            document.getElementById('specialMessageSound').play();
+        }
+
+        function getDailyTip() {
+            const tips = [
+                "Bebe al menos 8 vasos de agua hoy.",
+                "Toma un descanso de 5 minutos cada hora de trabajo.",
+                "Haz 10 minutos de estiramiento antes de dormir."
+                // Añade más consejos aquí
+            ];
+            const today = new Date().getDate();
+            return tips[today % tips.length];
+        }
+
+        function displayDailyTip() {
+            const tipElement = document.querySelector('.daily-tip');
+            tipElement.textContent = `Consejo del día: ${getDailyTip()}`;
+        }
+
+        function updateStreak() {
+            let streak = localStorage.getItem('visitStreak') || 0;
+            const lastVisit = localStorage.getItem('lastVisit');
+            const today = new Date().toDateString();
+
+            if (lastVisit !== today) {
+                streak++;
+                localStorage.setItem('visitStreak', streak);
+                localStorage.setItem('lastVisit', today);
+            }
+
+            const streakElement = document.getElementById('streak');
+            streakElement.textContent = `¡Racha de visitas: ${streak} días! 🔥`;
+        }
+
+        function updateVisitCount() {
+            let visits = localStorage.getItem('totalVisits') || 0;
+            visits++;
+            localStorage.setItem('totalVisits', visits);
+
+            const visitElement = document.getElementById('visitCount');
+            visitElement.textContent = `Total de visitas: ${visits}`;
+        }
+
+        function animateCloud(cloud, duration) {
+            gsap.fromTo(cloud, 
+                { x: "-10%" },
+                { x: "100vw", duration: duration, repeat: -1, ease: "linear" }
+            );
+        }
+
+        animateCloud(".cloud1", 80);
+        animateCloud(".cloud2", 55);
+        animateCloud(".cloud3", 70);
+
+        document.addEventListener('mousemove', (e) => {
+            const eyes = document.querySelectorAll('.eye');
+            eyes.forEach(eye => {
+                const rect = eye.getBoundingClientRect();
+                const eyeCenterX = rect.left + rect.width / 2;
+                const eyeCenterY = rect.top + rect.height / 2;
+                
+                const pupil = eye.querySelector('.pupil');
+                const maxMovement = rect.width / 4;
+                
+                const angleRad = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
+                
+                const moveX = Math.cos(angleRad) * maxMovement;
+                const moveY = Math.sin(angleRad) * maxMovement;
+                
+                gsap.to(pupil, {
+                    x: moveX,
+                    y: moveY,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+        });
+
+        // Inicializar todo
+        updateStreak();
+        updateVisitCount();
+        displayDailyTip();
+    </script>
+</body>
+</html>
